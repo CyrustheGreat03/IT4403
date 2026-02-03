@@ -1,0 +1,60 @@
+body {
+    background-color: lightskyblue;
+}
+
+.Top_section {
+    max-width: 1000px;
+    padding: 10px;
+    font-size: 20px;
+    
+}
+
+.Top_section h1 {
+    font-size: 30px;
+}
+
+.Top_section p {
+    font-size: 16px;
+}
+
+header {
+    display: flex; /* Puts them in a horiz row */
+    justify-content: space-between;            
+    align-items: center; /* Moves from top to center */
+    padding: 10px;
+    
+}
+
+nav a {
+    text-decoration: none;
+    background-color: black;
+    color:white;
+    border-radius: 30px; 
+    padding: 10px 20px;
+    margin-left: 10px;
+    font-size: 15px;
+}
+.full_web {
+    max-width: 1000px; 
+    margin: auto; 
+    padding: 20px;
+
+}
+
+.Labs_Posts {
+
+    margin-bottom: 30px;
+    background-color: white;
+    border-radius: 30px;
+    padding: 10px; 
+    text-align: center;
+
+    min-width: 1060px;
+    min-height: 500px;
+}
+
+.Labs_Posts h2 {
+     background-color: lightgray;
+    border-radius: 30px;
+    padding: 10px 10px; 
+}
