@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html> 
+
+
+
+
+<head>
+    <title>Lab 2- Picture Slideshow</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</head>
+
+<body> 
+
+
+    <nav>
+        <a href="Labs.html"> Labs Page</a>
+    </nav>
+
+    <h2> Lab 2: Slideshow</h2>
+
+
+    <div id="slideshow"></div>
+    <button id="Next"> Next </button>    
+    <div id="fade"></div>
+    <div id="picnum"></div>
+
+    <p> All images are from unsplash.com </p>
+
+
+<script> 
+$(document).ready(function() {
+
+
+
+    var pics = [
+
+        "https://images.unsplash.com/photo-1768813282031-2aec62eee8b7?ixlib=rb-4.1.0&q=85&fm=jpg&crop=entropy&cs=srgb&dl=niklas-jonasson-ZPbfvIN4NXs-unsplash.jpg",
+        "https://images.unsplash.com/photo-1770106678115-ec9aa241cdf6?ixlib=rb-4.1.0&q=85&fm=jpg&crop=entropy&cs=srgb&dl=leo_visions-OYAPYg90DbM-unsplash.jpg",
+        "https://images.unsplash.com/photo-1770347314659-7fd45b638f87?ixlib=rb-4.1.0&q=85&fm=jpg&crop=entropy&cs=srgb&dl=eldhose-kuriyan-lXiU_b9hMb4-unsplash.jpg",
+        "https://images.unsplash.com/photo-1770567351994-dd4a743ab1e6?ixlib=rb-4.1.0&q=85&fm=jpg&crop=entropy&cs=srgb&dl=henrique-ferreira-QjOiTg459jI-unsplash.jpg",    
+    ];
+
+    var alts = ["Green Rays Skies", "Rocky Mountins", "Praise The Skies", "Foggy Mountin View"]
+    
+    var i = 0
+
+        $("#slideshow").html("<img src='" + pics[i] + "' alt='" + alts[i] + "' width='500'>"); <!-- I-->
+        $("#picnum").text("Image" + " " + (i+1) + " " + "of" + " " + pics.length);
+        
+        $("#Next").click(function () {
+
+            i++;
+
+        if (i >= pics.length) {
+            i = 0;
+        }
+
+        $("#slideshow").fadeOut(350, function () {
+
+            $("#slideshow").html("<img src='" + pics[i]+ "' alt'" + alts[i] + "' width='500'>");
+
+            $('#slideshow').fadeIn(350)
+
+        });
+
+        $("#picnum").text(`Image ${i + 1} of ${pics.length}`);
+
+
+});
+
+
+});
+
+
+
+
+</script>
+</html>

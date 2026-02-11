@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+
+<body> 
+
+        <nav>
+
+            <a href="Labs.html"> Labs Page</a>
+        </nav>
+    </header>
+
+
+<head>
+    <title>Lab 2- Calculator</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</head>
+
+<body> 
+    <h2> Lab 2: Modified Calculator</h2>
+
+    <p> Please enter your first and second number: </p> 
+    <br> 
+    <p> Input Your First Number: </p>
+    <input type = "text" id = "first_number">
+    
+    <br> 
+    <p> Input Your Second Number:  </p>
+    <input type = "text" id = "second_number">
+
+    <br> 
+
+    <!-- LINK USED TO MAKE THIS: https://stackoverflow.com/questions/18309059/drop-down-menu-text-field-in-one-->
+    <p> Choose Your Operation:  </p>
+    <input list="operations" id="ops" />
+    <datalist id="operations">
+        <option value="Addition">
+        <option value="Subtraction">
+        <option value="Multiplication">
+        <option value="Division ">
+    </datalist>
+
+    <p> Add a Color: </p>
+    <input list="color" id="RGB" />
+    <datalist id="color"> 
+        <option value="Red"> 
+        <option value="Blue">
+        <option value="Green">
+    </datalist>
+
+    <br> <br>  <span id="result">  </span> <br> 
+    <br>
+    <button id="button"> Output: </button>
+
+
+</body>
+
+<script> 
+$(document).ready(function () {
+
+    $("#button").on("click", function () {
+
+        var number_one = Number($("#first_number").val()); 
+        var number_two = Number($("#second_number").val());
+        var op = $("#ops").val();
+        var color = $("#RGB").val();
+
+        var result; 
+
+        if (op == "Addition") {
+            result = number_one + number_two; 
+        }
+        else if (op == "Subtraction") {
+            result = number_one - number_two; 
+        }
+        else if (op == "Multiplication") {
+            result = number_one * number_two; 
+        }
+        else if (op == "Division") {
+            result = number_one / number_two; 
+        }
+        else {
+            result = "Please input number or operation"; 
+        }
+
+        $("#result").text(result);
+
+        if (color) {
+            $("#result").css("color", color); 
+        }
+        
+    });
+
+});
+
+</script>
