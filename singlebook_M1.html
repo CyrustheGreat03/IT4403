@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Milestone 1- Single Book</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</head>
+
+<body> 
+    <div class="full_web">
+    <header>
+
+        <div class="Top_section"> 
+            <h1> Naveed Noori </h1>
+            <p> IT 4403 - Advanced Web and Mobile Applications</p>
+
+        </div>
+
+        <nav>
+            <a href="index.html">HOME PAGE </a>
+            <a href="exercise.html">EXERCISES </a>
+            <a href="Labs.html">LABS </a>
+            <a href="projects.html"> INDIVIDUAL PROJECTS</a>
+        </nav>
+    </header>
+
+
+    <div class="SingleBook">
+
+        <div class="image">
+        <p id="Image"> </p>
+        </div>
+
+    <div class="BInfo">
+    <h2 id="Title"> </h2>
+    <p id="Authors"> </p>
+    <p id="Pages"> </p>
+    <p id="Categories"> </p>
+    <p id="Description"> </p>
+
+    </div>
+
+
+    
+    </div>
+
+</body>
+
+
+
+<style> 
+
+
+.SingleBook{
+    display: flex;
+    align-items: center;
+    gap: 50px;
+    margin-bottom: 30px;
+    background-color: white;
+    border-radius: 30px;
+    padding: 5px 20px;
+    text-align: left;
+
+    min-height: 300px;
+    min-width: 300px;
+}
+
+.image img{
+    margin: 50px; 
+}
+
+body {
+    background-color: lightskyblue;
+}
+
+.Top_section {
+    max-width: 1000px;
+    padding: 10px;
+    font-size: 20px;
+    
+}
+
+.Top_section h1 {
+    font-size: 30px;
+}
+
+.Top_section p {
+    font-size: 16px;
+}
+
+header {
+    display: flex; /* Puts them in a horiz row */
+    justify-content: space-between;            
+    align-items: center; /* Moves from top to center */
+    padding: 10px;
+    
+}
+
+nav a {
+    text-decoration: none;
+    background-color: black;
+    color:white;
+    border-radius: 30px; 
+    padding: 10px 20px;
+    margin-left: 10px;
+    font-size: 15px;
+}
+.full_web {
+    max-width: 1000px; 
+    margin: auto; 
+    padding: 20px;
+
+}
+
+</style>
+
+<script>
+    var json_SingleBook =
+
+{
+kind: "books#volume",
+id: "Wfan6L9RGgYC",
+etag: "Su7XQ+MGQ1I",
+selfLink: "https://www.googleapis.com/books/v1/volumes/Wfan6L9RGgYC",
+volumeInfo: {
+title: "The Modern Web",
+subtitle: "Multi-device Web Development with HTML5, CSS3, and JavaScript",
+authors: [
+"Peter Gasston"
+],
+publisher: "No Starch Press",
+publishedDate: "2013",
+description: "<p><b>A Guide to Modern Web Development</b><br></p><p>Today's web technologies are evolving at near-light speed, bringing the promise of a seamless Internet ever closer to reality. When users can browse the Web on a three-inch phone screen as easily as on a fifty-inch HDTV, what's a developer to do?</p><p>Peter Gasston's <i>The Modern Web</i> will guide you through the latest and most important tools of device-agnostic web development, including HTML5, CSS3, and JavaScript. His plain-English explanations and practical examples emphasize the techniques, principles, and practices that you'll need to easily transcend individual browser quirks and stay relevant as these technologies are updated.</p><p>Learn how to:</p><p>* Plan your content so that it displays fluidly across multiple devices<br>* Design websites to interact with devices using the most up-to-date APIs, including Geolocation, Orientation, and Web Storage<br>* Incorporate cross-platform audio and video without using troublesome plug-ins<br>* Make images and graphics scalable on high-resolution devices with SVGUse powerful HTML5 elements to design better forms</p><p>Turn outdated websites into flexible, user-friendly ones that take full advantage of the unique capabilities of any device or browser. With the help of <i>The Modern Web</i>, you'll be ready to navigate the front lines of device-independent development.</p>",
+industryIdentifiers: [
+{
+type: "ISBN_10",
+identifier: "1593274874"
+},
+{
+type: "ISBN_13",
+identifier: "9781593274870"
+}
+],
+readingModes: {
+text: true,
+image: true
+},
+pageCount: 264,
+printedPageCount: 266,
+dimensions: {
+height: "24.00 cm",
+width: "17.80 cm",
+thickness: "1.50 cm"
+},
+printType: "BOOK",
+categories: [
+"Computers / Web / Design",
+"Computers / Software Development & Engineering / General",
+"Computers / Programming Languages / JavaScript",
+"Computers / Programming Languages / HTML",
+"Computers / Web / Web Programming"
+],
+averageRating: 5,
+ratingsCount: 2,
+maturityRating: "NOT_MATURE",
+allowAnonLogging: true,
+contentVersion: "1.5.5.0.preview.3",
+panelizationSummary: {
+containsEpubBubbles: false,
+containsImageBubbles: false
+},
+imageLinks: {
+smallThumbnail: "http://books.google.com/books/content?id=Wfan6L9RGgYC&printsec=frontcover&img=1&zoom=5&edge=curl&imgtk=AFLRE71mfMr9k1ewkfN9IdKMwnbJZAWde8fZThgRspm54vWoiuCn6jpBtzQa15omtckxjjAvjhcqBAvK6ihf4xKcAWvxjPI_oivwFodQvKqhOHUCt2RKpgmH72qBKiYj1bFN2lAWRRXs&source=gbs_api",
+thumbnail: "http://books.google.com/books/content?id=Wfan6L9RGgYC&printsec=frontcover&img=1&zoom=1&edge=curl&imgtk=AFLRE72mTmQCW0krJ4pLBSpfhU1oY847YWaY8PUonUS6qQs4amsq_Ar0lR-7bkSoiCQ4iC4msYbUnh0x-PNffLUHfP4mGiUkHun2LxBewAJbkimXyYTZrkCfZH47mAldhL83zvU-dpeu&source=gbs_api",
+small: "http://books.google.com/books/content?id=Wfan6L9RGgYC&printsec=frontcover&img=1&zoom=2&edge=curl&imgtk=AFLRE72y-JMzviubfBIX0TMnoMMaC-532QXJkGYWi4HmXxSaZQg-CAP1oDQNE4vFhV67chwZthI9tIGkFSlIgMAk_zbIEmnZCpqXy1nPLTAuM8_ngPsaJ1D-bcEkzcyKO8PLZR_uthWm&source=gbs_api",
+medium: "http://books.google.com/books/content?id=Wfan6L9RGgYC&printsec=frontcover&img=1&zoom=3&edge=curl&imgtk=AFLRE73ENlWE_rCobG14G8xjw63_tA7djYxVqFnNc6OtR9OJz9GLll3kuGcLmZW3PzyK6oVAeMyIt4FYs8zPy1dyt9j9-mg4VKarXGxJuZymJEcLQnxJJ9z5Xtfb-2oYkz10F5fy4L1J&source=gbs_api",
+large: "http://books.google.com/books/content?id=Wfan6L9RGgYC&printsec=frontcover&img=1&zoom=4&edge=curl&imgtk=AFLRE70_-YEEccDp6VzE-Vzb9gnJYd9-gfyoz0GWfI-yBkIC4J6MUkPeKqjiLLvXJKOGbMuOhGZ_Nkq77OMTfiQFPmNWXml12Q89CbOyb5dqGxB2JdOoQmdPfCUC2vcuMojgPUPeteF6&source=gbs_api",
+extraLarge: "http://books.google.com/books/content?id=Wfan6L9RGgYC&printsec=frontcover&img=1&zoom=6&edge=curl&imgtk=AFLRE717DGjh6BB3Rb2P09Yjl3HbKgFKtm08JkWQHys5YVP7wzda2jsk01epYatsKEZPd13k0JZIo4dvTP81e4hR-sJC-imbr8udAZOBTnkfX52RVL27dGwTcO6KUvLaZH4Ekie1-9l2&source=gbs_api"
+},
+language: "en",
+previewLink: "http://books.google.com/books?id=Wfan6L9RGgYC&hl=&source=gbs_api",
+infoLink: "https://play.google.com/store/books/details?id=Wfan6L9RGgYC&source=gbs_api",
+canonicalVolumeLink: "https://play.google.com/store/books/details?id=Wfan6L9RGgYC"
+},
+layerInfo: {
+layers: [
+{
+layerId: "geo",
+volumeAnnotationsVersion: "10"
+}
+]
+},
+saleInfo: {
+country: "US",
+saleability: "NOT_FOR_SALE",
+isEbook: false
+},
+accessInfo: {
+country: "US",
+viewability: "PARTIAL",
+embeddable: true,
+publicDomain: false,
+textToSpeechPermission: "ALLOWED",
+epub: {
+isAvailable: true
+},
+pdf: {
+isAvailable: true
+},
+webReaderLink: "http://play.google.com/books/reader?id=Wfan6L9RGgYC&hl=&source=gbs_api",
+accessViewStatus: "SAMPLE",
+quoteSharingAllowed: false
+}
+}
+
+//Data for one single book, including details such as title, authors, description, and other metadata.
+$(document).ready(function() {
+$("#Image").html(
+    
+    "<img src='" + json_SingleBook.volumeInfo.imageLinks.thumbnail + "'>"), 
+
+$("#Title").html(json_SingleBook.volumeInfo.title), 
+$("#Authors").html("<strong> Author: </strong>"+json_SingleBook.volumeInfo.authors)
+$("#Description").html("<strong> Description: </strong>"+json_SingleBook.volumeInfo.description)
+$("#Categories").html("<strong> Categories: </strong>" +json_SingleBook.volumeInfo.categories)
+$("#Pages").html("<strong> Number of Pages: </strong>"+json_SingleBook.volumeInfo.pageCount)
+
+})
+</script>
+</html>

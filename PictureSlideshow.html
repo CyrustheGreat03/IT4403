@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<style>
+body {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  background-color: #f4f4f4;
+}
+
+.gallery {
+  max-width: 700px;
+  margin: auto;
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+img {
+  width: 100%;
+  height: auto;
+  border-radius: 6px;
+}
+
+button {
+  margin-top: 10px;
+  padding: 10px 18px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+</style>
+
+
+
+
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <title>Picture Browser Application</title>
+
+  <!-- jQuery CDN -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+</head>
+<body>
+
+  <h1>Picture Browser Application</h1>
+
+  <div class="gallery">
+    <img id="galleryImage" src="" alt="">
+    <p id="caption"></p>
+    <p id="counter"></p>
+
+    <button id="Next">Next</button> 
+  </div>
+
+
+
+
+
+
+
+
+</body>
+<script> 
+$(document).ready(function () {
+
+
+
+
+  const images = [
+    {
+      src: "https://images.unsplash.com/photo-1768813282031-2aec62eee8b7?ixlib=rb-4.1.0&q=85&fm=jpg&crop=entropy&cs=srgb&dl=niklas-jonasson-ZPbfvIN4NXs-unsplash.jpg",
+      alt_text: "",
+      caption_text: ""
+    },
+    {
+      src: "https://images.unsplash.com/photo-1770106678115-ec9aa241cdf6?ixlib=rb-4.1.0&q=85&fm=jpg&crop=entropy&cs=srgb&dl=leo_visions-OYAPYg90DbM-unsplash.jpg",
+      alt: "",
+      caption: ""
+    },
+    {
+      src: "https://images.unsplash.com/photo-1770347314659-7fd45b638f87?ixlib=rb-4.1.0&q=85&fm=jpg&crop=entropy&cs=srgb&dl=eldhose-kuriyan-lXiU_b9hMb4-unsplash.jpg",
+      alt: "",
+      caption: "Dark alpine mountains and snow-covered peaks, with warm pink clouds glowing against a cool blue sky, creating a quiet, cinematic winter scene."
+    },
+    {
+      src: "https://images.unsplash.com/photo-1770567351994-dd4a743ab1e6?ixlib=rb-4.1.0&q=85&fm=jpg&crop=entropy&cs=srgb&dl=henrique-ferreira-QjOiTg459jI-unsplash.jpg",
+      alt: "",
+      caption: ""
+    }
+  ];
+
+  let currentIndex = 0;
+
+  function showImage(index) {
+    $("#galleryImage").fadeOut(300, function () {
+      $(this)
+        .attr("src", images[index].src)
+        .attr("alt", images[index].alt)
+        .fadeIn(300);
+    });
+
+
+
+
+
+    $("#caption").text(images[index].caption);
+    $("#counter").text(`Image ${index + 1} of ${images.length}`);
+  }
+
+  $("#nextBtn").on("click", function () {
+    currentIndex = (currentIndex + 1) % images.length;
+    showImage(currentIndex);
+  });
+
+  // Keyboard navigation (enhancement)
+  $(document).on("keydown", function (e) {
+    if (e.key === "ArrowRight") {
+      $("#nextBtn").click();
+    }
+  });
+
+  // Initial image
+  showImage(currentIndex);
+
+});
+
+</script> 
+
