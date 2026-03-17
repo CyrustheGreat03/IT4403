@@ -66,7 +66,7 @@ function resultnums(pagebegin){
 
     $(".Result").html("")
     //URL
-    url = "https://www.googleapis.com/books/v1/volumes?q="+user_input+"&maxResults="+number_of_results+"&startIndex="+pagebegin
+    url = "https://www.googleapis.com/books/v1/volumes?q=" + user_input +"&maxResults=" + number_of_results +"&startIndex=" + pagebegin +"&key=AIzaSyCKfwA19zlxpWUozLUu6PwikkFIodUt22Y"
 
     $.get(url, function(json_MultipleBooks){ //Based off Milestone 1 Mult Books
         for (i = 0; i<json_MultipleBooks.items.length; i++){ //Loop
