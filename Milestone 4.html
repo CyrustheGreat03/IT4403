@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1"> <!-- CITE: https://web.dev/articles/responsive-web-design-basics -->
+<title> Search Books </title>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://unpkg.com/mustache@latest"></script>
+</head>
+
+<body> 
+<div class="full_web">
+
+<header>
+
+<div class="Top_section"> 
+<h1> Naveed Noori </h1>
+<p> IT 4403 - Advanced Web and Mobile Applications</p>
+</div>
+
+
+</header>
+
+<!--Buttons-->
+
+<div class="Buttons"> 
+<input id="TextBox" type="text" placeholder="Search Keywords (Example: App Development)">
+<button id="SearchButton">Search</button>
+
+<div id="pagination"></div> <!-- Removed dropdown and added pagination-->
+</div>
+
+<div class="bottom_buttons">
+
+    <button id="grid"> Grid </button>
+    <button id="list"> List </button>
+    <button id="Disp_Search">Results</button>
+    <button id="Disp_Bookshelf">Bookshelf</button>
+
+</div>
+
+<div class="Result"></div>
+<div class="bookshelf_title"><h2> My Bookshelf </h2></div>
+<div id="BookShelf_Content"></div>
+<div id="Books_Content"> </div> <!-- Moved to bottom -->
+
+
+<script id="book_result" type="text/template">  
+
+{{#books}}
+<div class= "Book_Background">
+    <img src="{{thumbnail}}" class="Img"> 
+    <div class="bookInfo">
+        <h3 class="click" data-id="{{id}}" style="cursor:pointer">{{title}}</h3>
+        <p><b>Authors:</b> {{authors}}</p>
+        <p><b>Publisher:</b> {{publisher}}</p>
+        <p><b>Published:</b> {{date}}</p>
+    </div> 
+</div>
+{{/books}}
+
+</script>
+
+<script id="book_details" type="text/template">
+
+<div class="Book_Background">
+<img src="{{thumbnail}}" class="Img">
+<div class="bookInfo">
+    <h2 class="click" data-id="{{id}}" style="cursor:pointer">{{title}}</h2>
+    <p><b>Pages:</b> {{pages}}</p>
+    <p><b>Authors:</b> {{authors}}</p>
+    <p><b>Publisher:</b> {{publisher}}</p>
+    <p><b>Language:</b> {{language}}</p>
+    <p><b>Maturity Rating:</b> {{maturityRating}}</p>
+    <p><b>Categories:</b> {{categories}}</p>
+    <p><b>Published:</b> {{date}}</p>
+    <p>{{description}}</p>
+</div>
+</div>
+
+</script>
+
+<script id="bookshelf_details" type="text/template"> 
+    
+{{#books}}
+    <div class= "Book_Background">
+    <img src="{{thumbnail}}" class="Img"> 
+    <div class="bookInfo">
+        <h3 class="click" data-id="{{id}}" style="cursor:pointer">{{title}}</h3>
+        <p><b>Authors:</b> {{authors}}</p>
+        <p><b>Publisher:</b> {{publisher}}</p>
+        <p><b>Published:</b> {{date}}</p>
+    </div> 
+    </div>
+{{/books}}
+
+</script>
+
+
+<script>
+//For new buttons (grid, list, dispay search, display bookshelf)
+
+$("#grid").click(function(){
+    $(".Result").css("grid-template-columns", "repeat(3, 325px)")
+})
+
+$("#list").click(function(){
+    $(".Result").css("grid-template-columns", "repeat(1, 1000px)")
+})
+
+$("#Disp_Search").click(function(){
+    $(".Result").show() 
+    $("#BookShelf_Content").hide() 
+    $(".bookshelf_title").hide() 
+})
+
+$("#Disp_Bookshelf").click(function(){
+    $(".Result").hide()
+    $("#BookShelf_Content").show()
+    $(".bookshelf_title").show() 
+
+})
+
+
+user_input = "" 
+number_of_results = 10 //num of results per page 
+pagebeginSTART = 0 //the start index 
+pagebegin = 0
+
+//search button
+$('#SearchButton').click(function(){ // search button
+    user_input=$('#TextBox').val()
+    pagebeginSTART = 0
+    pagebegin=0
+
+    $(".bottom_buttons").show()
+    resultnums()
+})
+
+function resultnums(){
+    $(".Result").html("")
+    
+
+    pagebegin = (pagebeginSTART * number_of_results)
+
+    url = "https://www.googleapis.com/books/v1/volumes?q=" + user_input + "&maxResults=10&startIndex=" + pagebegin + "&key=AIzaSyCKfwA19zlxpWUozLUu6PwikkFIodUt22Y"
+
+
+    $.get(url, function(json_MultipleBooks){ //Based off Milestone 1 Mult Books
+    
+        for (i = 0; i<json_MultipleBooks.items.length; i++){ //Loop
+        books =[]
+            //Cannot do book render for this because of loop
+            books.push({
+                title: json_MultipleBooks.items[i].volumeInfo.title || "N/a",
+                id: json_MultipleBooks.items[i].id, //no volID for id
+                authors: json_MultipleBooks.items[i].volumeInfo.authors || "N/a",
+                publisher: json_MultipleBooks.items[i].volumeInfo.publisher || "N/a",
+                date: json_MultipleBooks.items[i].volumeInfo.publishedDate || "N/a",
+                thumbnail: json_MultipleBooks.items[i].volumeInfo.imageLinks.thumbnail
+            })
+
+            temp = $("#book_result").html()
+            results= Mustache.render(temp, { books })
+
+            $(".Result").append(results)
+        }
+
+
+
+
+        pagination(json_MultipleBooks)
+    })
+}
+
+function pagination (Books){
+    $("#pagination").html("")
+
+    for (i=0;i<5;i++){ //makes sure there are 5 pages
+    litup = (i==pagebeginSTART) ? "litupPage" : ""
+
+    $("#pagination").append(`<button class="numpages ${litup}" data-page="${i}">${i+1}</button>`) // lituppage used for indication of the correct page button
+
+
+    }
+}
+
+$(document).on("click", ".numpages", function(){
+    pagebeginSTART= $(this).data("page")
+    pagebegin = pagebeginSTART
+    resultnums()
+})
+
+$(document).on("click", ".click", function(){
+    
+    id = $(this).data("id")
+    url = "https://www.googleapis.com/books/v1/volumes/"+id+"?&key=AIzaSyCKfwA19zlxpWUozLUu6PwikkFIodUt22Y"
+
+//Restrict key to website once comp
+//CITE: https://www.w3schools.com/cssref/pr_class_cursor.php For cursor pointer
+
+
+    $.getJSON(url, function(json_singlebook){
+
+        title = json_singlebook.volumeInfo.title 
+        pages = json_singlebook.volumeInfo.pageCount
+        authors = json_singlebook.volumeInfo.authors
+        publisher = json_singlebook.volumeInfo.publisher
+        language = json_singlebook.volumeInfo.language
+        maturityRating = json_singlebook.volumeInfo.maturityRating
+        categories = json_singlebook.volumeInfo.categories
+        date = json_singlebook.volumeInfo.publishedDate
+        description = json_singlebook.volumeInfo.description
+        thumbnail = json_singlebook.volumeInfo.imageLinks.thumbnail
+
+        document.getElementById("Books_Content").scrollIntoView()
+
+        temp = $("#book_details").html()
+        details = Mustache.render(temp, {
+            
+            title,
+            pages,
+            authors,
+            publisher,
+            language,
+            maturityRating,
+            categories,
+            date,
+            description,
+            thumbnail
+        
+        })
+
+        $("#Books_Content").html(details)
+
+        })
+})
+
+// Bookshelf 
+   //Google Book ids
+    bookID = [
+    "d96LDwAAQBAJ",
+    "v8NTA2mHL5kC",
+    "eQsVEAAAQBAJ",
+    "vdivoRxVLBMC",
+    "GEWXQbASXZUC"
+    ]
+
+    //Keep as is
+    for(let id of bookID){
+        //url
+        url = "https://www.googleapis.com/books/v1/volumes/" + id + "?&key=AIzaSyCKfwA19zlxpWUozLUu6PwikkFIodUt22Y"
+
+        //Instead of fetch() I am using jquery because I am more familiar with it. CITE for $.getJSON for url- https://api.jquery.com/jQuery.getJSON/
+        $.getJSON(url, function(json_singlebook){
+            books = []
+
+            books.push({
+                title: json_singlebook.volumeInfo.title,
+                id: json_singlebook.id, //to link title to details
+                authors: json_singlebook.volumeInfo.authors,
+                publisher: json_singlebook.volumeInfo.publisher,
+                date: json_singlebook.volumeInfo.publishedDate,
+                thumbnail: json_singlebook.volumeInfo.imageLinks.thumbnail
+            })
+
+            temp =$("#bookshelf_details").html()
+            results = Mustache.render(temp, {books})
+
+            $("#BookShelf_Content").append(results)
+
+
+        })
+
+    }
+
+
+</script>
+
+
+<style>
+
+.bottom_buttons{
+    text-align: center;
+    margin-top: 20px;
+    display: none;
+    margin-bottom: 20px;
+
+}
+
+#grid, #list, #Disp_Search, #Disp_Bookshelf{
+    padding: 5px 20px;
+    background-color: black;
+    color: white;
+    border-radius: 5px;
+
+}
+
+#pagination button{
+    margin: 15px;
+    padding: 5px 10px;
+}
+
+.numpages.litupPage{
+    background-color: black;
+    color: white;
+}
+
+body {
+    background-color: rgb(136, 239, 189);
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.full_web {
+    max-width: 1000px;
+    margin: auto;
+    padding: 20px;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+.Buttons{
+    text-align: center;
+}
+
+#TextBox {
+    padding:10px 25px;
+    width: 600px;
+    margin-top: 50px;
+    border-radius: 15px;
+
+}
+#SearchButton{
+
+    padding: 5px 20px;
+    background-color: black;
+    color: white;
+    border-radius: 20px;
+    
+}
+
+#NumberofPages {
+    padding: 0px 10px;
+    border-radius: 10px;
+
+}
+
+.Result{
+    display: grid;
+    gap: 20px;
+    margin-top: 50px;
+    grid-template-columns:repeat(3, 325px); /* CITE: https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/grid-template-columns */
+    text-align: center;
+    margin-bottom: 50px;
+
+}
+
+.Book_Background{
+    background-color: white;
+    padding: 20px;
+    border-radius: 20px;
+}
+
+.preview{
+
+    padding: 5px 5px;
+    border-radius: 10px;
+    text-decoration: none;
+
+}
+
+#BookShelf_Content{
+    
+    display: grid;
+    gap: 20px;
+    margin-top: 50px;
+    grid-template-columns:repeat(3, 325px); /* CITE: https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/grid-template-columns */
+    text-align: center;
+
+}
+
+.bookshelf_title {
+    text-align: center;
+}
+
+#Books_Content{
+    margin-top: 50px;
+}
+
+.Top_section{
+    text-align: center;
+    width:1200px;
+}
+
+/* MOBILE RESPONSIVENESS; CITE:https://www.w3schools.com/css/css_rwd_mediaqueries.asp */
+@media (max-width: 768px){
+    
+    #TextBox {
+    width: 200px;
+}
+
+.Result{
+    grid-template-columns:repeat(3, 1fr); /* CITE: https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/grid-template-columns */
+
+
+}
+
+#BookShelf_Content{
+    grid-template-columns:repeat(3, 1fr); /* CITE: https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/grid-template-columns */
+
+
+}
+
+.full_web {
+    padding: 10px;
+}
+
+#grid, #list, #Disp_Search, #Disp_Bookshelf{
+    padding: 5px 10px;
+
+}
+
+.Book_Background{
+
+    padding: 10px;
+    border-radius: 10px;
+}
+
+#pagination button{
+    margin: 5px;
+    padding: 2px 5px;
+}
+}
+
+</style>
